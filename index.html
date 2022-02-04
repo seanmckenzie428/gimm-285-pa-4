@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta charset="UTF-8">
+    <title>GIMM 285 Form</title>
+    <link rel='stylesheet' href='style.css'>
+<!--    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="index.js"></script>
+</head>
+<body>
+
+    <h1>Programming Languages Survey</h1>
+
+    <hr/>
+
+    <form id="programming-languages-survey">
+
+        <div class='row'>
+            <div class='col-2'>
+                <label for="name">Please enter your name: </label>
+            </div>
+            <div class='col-10'>
+                <input type="text" name="name" id="name">
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class='col-2'>
+                <label for="email">Please enter your email: </label>
+            </div>
+            <div class='col-10'>
+                <input type="email" name="email" id="email">
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class='col-2'>
+                <label for="languages-used">What languages have you used?</label>
+            </div>
+            <div class='col-10 multiselect'>
+                <select name="languages" id="languages-used" multiple="multiple">
+                    <option value="javascript">JavaScript</option>
+                    <option value="php">PHP</option>
+                    <option value="c-sharp">C#</option>
+                    <option value="c-plus-plus">C++</option>
+                </select>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class='col-2'>
+                <label for="favorite-language">Which language is your favorite?</label>
+            </div>
+            <div class='col-10'>
+                <input name="favorite-language" id="favorite-language" type="text">
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class='col-2'>
+                <label for="why-favorite">Why is it your favorite?</label>
+            </div>
+            <div class='col-10'>
+                <textarea name="why-favorite" id="why-favorite" cols="30" rows="5"></textarea>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class='col-2'>
+                <label for="programming-types">What types of programming do you usually do?</label>
+            </div>
+            <div class='col-10 mul'>
+                <select name="programming-types-select" id="programming-types" multiple="multiple">
+                    <option value="frontend-web">Frontend Web</option>
+                    <option value="backend-web">Backend Web</option>
+                    <option value="game-dev">Game Development</option>
+                    <option value="android">Android</option>
+                    <option value="ios">Ios</option>
+                    <option value="windows">Windows</option>
+                    <option value="macos">MacOS</option>
+                    <option value="linux">Linux</option>
+                </select>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class='col-2'>
+                <label for="visual-coding-thoughts">What are your thoughts on visual coding languages? (e.g. Unreal Engine Blueprints)</label>
+            </div>
+            <div class='col-10'>
+                <textarea name="visual-coding-thoughts" id="visual-coding-thoughts" cols="30" rows="5"></textarea>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class='col-2'>
+                <label>Prove that you are a programmer by uploading a basic hello world script (in JavaScript)</label>
+            </div>
+            <div class='col-10'>
+                <input type="file" id="hello-world-upload">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 form-submit-status"></div>
+        </div>
+
+        <div class='row'>
+            <div class='col-12'>
+                <button id='submit'>Submit</button>
+            </div>
+        </div>
+    </form>
+    <hr/>
+
+    <div class="row">
+        <h2>Submissions</h2>
+    </div>
+    <div class="row">
+        <div class="col-12 horiz-scroll">
+            <table id="submissions-table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Languages Used</th>
+                    <th>Favorite Language</th>
+                    <th>Why?</th>
+                    <th>Types of programming</th>
+                    <th>Thoughts on Visual Coding</th>
+                    <th>Hello World File</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
