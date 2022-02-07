@@ -2,33 +2,54 @@ $(document).ready(function () {
 
     let submissionsTable = $('#submissions-table');
     let submissionsTableBody = submissionsTable.find('tbody');
-
+    let hasConnection = false;
+    submissionsTable.hide();
+    submissionsTable.after('<p id="connection-status">Connecting to server...</p>');
+    let connectionStatus = $('#connection-status');
 
 // get current submissions to fill table on page load
 fetch('http://localhost:3000/submissions', {
     method: 'post'
 })
-    .then(response => response.json())
-    .then((data) => {
-        if (data['submissions'].length === 0) {
-            submissionsTable.hide();
-            submissionsTable.after('<p id="no-submissions">No Submissions</p>');
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not OK');
+        } else {
+            hasConnection = true;
         }
-        submissionsTableBody.empty();
-        for (let submission of data['submissions']) {
-            let rowsToAdd = '<tr>';
-            rowsToAdd += '<td>'+submission['name']+'</td>';
-            rowsToAdd += '<td>'+submission['email']+'</td>';
-            rowsToAdd += '<td>'+submission['languages-used']+'</td>';
-            rowsToAdd += '<td>'+submission['favorite-language']+'</td>';
-            rowsToAdd += '<td>'+submission['why-favorite']+'</td>';
-            rowsToAdd += '<td>'+submission['programming-types']+'</td>';
-            rowsToAdd += '<td>'+submission['visual-coding-thoughts']+'</td>';
-            rowsToAdd += '<td>'+submission['file-name']+'</td>';
-            rowsToAdd += '</tr>';
-            submissionsTableBody.append(rowsToAdd);
-        }
+        return response.json()
     })
+    .then((data) => {
+        if (data['submissions'].length === 0 ) {
+            submissionsTable.hide();
+            connectionStatus.hide();
+            submissionsTable.after('<p id="no-submissions">No Submissions</p>');
+        } else {
+            submissionsTableBody.empty();
+            submissionsTable.show();
+            connectionStatus.hide();
+            for (let submission of data['submissions']) {
+                let rowsToAdd = '<tr>';
+                rowsToAdd += '<td>'+submission['name']+'</td>';
+                rowsToAdd += '<td>'+submission['email']+'</td>';
+                rowsToAdd += '<td>'+submission['languages-used']+'</td>';
+                rowsToAdd += '<td>'+submission['favorite-language']+'</td>';
+                rowsToAdd += '<td>'+submission['why-favorite']+'</td>';
+                rowsToAdd += '<td>'+submission['programming-types']+'</td>';
+                rowsToAdd += '<td>'+submission['visual-coding-thoughts']+'</td>';
+                rowsToAdd += '<td>'+submission['file-name']+'</td>';
+                rowsToAdd += '</tr>';
+                submissionsTableBody.append(rowsToAdd);
+            }
+        }
+
+    })
+    .catch(error => {
+        connectionStatus.hide();
+        submissionsTable.hide();
+        submissionsTable.after('<p id="connection-error">There was an error connecting to the server</p>');
+        console.error("theres a fetching problem", error);
+    });
 
 $('#languages-used').select2({
     tags: true,
